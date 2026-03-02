@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LuxeThreads · Admin Panel</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: #f0f4fa;
+    }
+
+    /* Admin Layout */
+    .admin-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 280px;
+      background: #0a2c4e;
+      color: white;
+      padding: 2rem 1.5rem;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    .sidebar h2 span {
+      color: #7aa9e0;
+      font-weight: 600;
+    }
+
+    .sidebar .admin-badge {
+      background: #1e4b77;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin: 1rem 0 2rem;
+      display: inline-block;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+    }
+
+    .sidebar nav ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .sidebar nav ul li a {
+      color: #cbd5e0;
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      display: block;
+      border-radius: 10px;
+      transition: 0.3s;
+      font-size: 1.1rem;
+    }
+
+    .sidebar nav ul li a i {
+      margin-right: 12px;
+      width: 24px;
+    }
+
+    .sidebar nav ul li a:hover,
+    .sidebar nav ul li a.active {
+      background: #1e4b77;
+      color: white;
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+    }
+
+    /* Top Header */
+    .top-header {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-title h1 {
+      color: #0a2c4e;
+      font-size: 2rem;
+    }
+
+    .header-title p {
+      color: #718096;
+      margin-top: 0.3rem;
+    }
+
+    .admin-profile {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .admin-profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #e2e8f0;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.8rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      transition: 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,44,95,0.1);
+    }
+
+    .stat-icon {
+      font-size: 2.5rem;
+      color: #0a2c4e;
+      margin-bottom: 1rem;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .stat-label {
+      color: #64748b;
+      margin-top: 0.3rem;
+    }
+
+    /* Recent Orders Table */
+    .recent-orders {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-header h2 {
+      color: #0a2c4e;
+      font-size: 1.5rem;
+    }
+
+    .view-all {
+      color: #0a2c4e;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th {
+      text-align: left;
+      padding: 1rem;
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .status-badge {
+      background: #cbd5e1;
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .status-badge.pending {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+
+    .status-badge.completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .action-btn {
+      background: none;
+      border: 1px solid #cbd5e1;
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-right: 0.5rem;
+    }
+
+    .action-btn:hover {
+      background: #0a2c4e;
+      color: white;
+      border-color: #0a2c4e;
+    }
+
+    /* Product Management */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 15px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .product-card h3 {
+      color: #0a2c4e;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0a2c4e;
+      margin: 0.5rem 0;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .edit-btn, .delete-btn {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .edit-btn {
+      background: #0a2c4e;
+      color: white;
+    }
+
+    .delete-btn {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* Add Product Form */
+    .add-product-form {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #475569;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .submit-btn {
+      background: #0a2c4e;
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .submit-btn:hover {
+      background: #1e4b77;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .tab {
+      padding: 0.8rem 2rem;
+      background: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .tab.active {
+      background: #0a2c4e;
+      color: white;
+    }
+
+    /* Sections */
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    /* Login Page */
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a2c4e 0%, #1e4b77 100%);
+    }
+
+    .login-box {
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      width: 400px;
+      max-width: 90%;
+    }
+
+    .login-box h2 {
+      color: #0a2c4e;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #0a2c4e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- Login Page -->
+  <div id="loginPage" class="login-container">
+    <div class="login-box">
+      <h2><i class="fas fa-crown"></i> Admin Login</h2>
+      <input type="text" id="username" class="login-input" placeholder="Username" value="admin">
+      <input type="password" id="password" class="login-input" placeholder="Password" value="admin123">
+      <button onclick="login()" class="login-btn">Login to Dashboard</button>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="adminDashboard" class="admin-container hidden">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>LUXE<span>THREADS</span></h2>
+      <div class="admin-badge">
+        <i class="fas fa-shield-alt"></i> Admin Panel
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="showSection('dashboard')" class="active" id="link-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li><a href="#" onclick="showSection('orders')" id="link-orders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+          <li><a href="#" onclick="showSection('products')" id="link-products"><i class="fas fa-tshirt"></i> Products</a></li>
+          <li><a href="#" onclick="showSection('addProduct')" id="link-addproduct"><i class="fas fa-plus-circle"></i> Add Product</a></li>
+          <li><a href="#" onclick="showSection('customers')" id="link-customers"><i class="fas fa-users"></i> Customers</a></li>
+          <li><a href="#" onclick="showSection('settings')" id="link-settings"><i class="fas fa-cog"></i> Settings</a></li>
+          <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Header -->
+      <div class="top-header">
+        <div class="header-title">
+          <h1>Welcome back, Admin</h1>
+          <p><i class="fas fa-envelope"></i> samarabbas322223@gmail.com</p>
+        </div>
+        <div class="admin-profile">
+          <i class="fas fa-bell" style="font-size: 1.5rem; color: #0a2c4e;"></i>
+          <img src="https://via.placeholder.com/50" alt="Admin">
+        </div>
+      </div>
+
+      <!-- Dashboard Section -->
+      <div id="section-dashboard" class="section active">
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+            <div class="stat-number" id="totalOrders">24</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+            <div class="stat-number" id="totalRevenue">₹45,899</div>
+            <div class="stat-label">Revenue (INR)</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-tshirt"></i></div>
+            <div class="stat-number" id="totalProducts">20</div>
+            <div class="stat-label">Products</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-users"></i></div>
+            <div class="stat-number" id="totalCustomers">156</div>
+            <div class="stat-label">Customers</div>
+          </div>
+        </div>
+
+        <!-- Recent Orders -->
+        <div class="recent-orders">
+          <div class="section-header">
+            <h2>Recent Orders</h2>
+            <a href="#" onclick="showSection('orders')" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <table id="recentOrdersTable">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#ORD001</td>
+                <td>Rahul Sharma</td>
+                <td>3 items</td>
+                <td>₹5,299</td>
+                <td><span class="status-badge pending">Pending</span></td>
+              </tr>
+              <tr>
+                <td>#ORD002</td>
+                <td>Priya Patel</td>
+                <td>2 items</td>
+                <td>₹7,899</td>
+                <td><span class="status-badge completed">Completed</span></td>
+              </tr>
+              <tr>
+                <td>#ORD003</td>
+                <td>Amit Kumar</td>
+                <td>1 item</td>
+                <td>₹3,899</td>
+                <td><span class="status-badge pending">Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Orders Section -->
+      <div id="section-orders" class="section">
+        <div class="recent-orders">
+          <h2>All Orders</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Date</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody">
+              <tr>
+                <td>#ORD001</td>
+                <td>2024-01-15</td>
+                <td>Rahul Sharma</td>
+                <td>White Linen Shirt (2)</td>
+                <td>₹5,299</td>
+                <td><span class="status-badge pending">Pending</span></td>
+                <td>
+                  <button class="action-btn"><i class="fas fa-check"></i></button>
+                  <button class="action-btn"><i class="fas fa-times"></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Products Section -->
+      <div id="section-products" class="section">
+        <div class="tabs">
+          <button class="tab active" onclick="filterProducts('all')">All</button>
+          <button class="tab" onclick="filterProducts('tshirt')">T-Shirts</button>
+          <button class="tab" onclick="filterProducts('jeans')">Jeans</button>
+        </div>
+        <div class="product-grid" id="productGrid">
+          <!-- Products will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Add Product Section -->
+      <div id="section-addProduct" class="section">
+        <div class="add-product-form">
+          <h2 style="margin-bottom: 2rem;">Add New Product</h2>
+          <form onsubmit="addProduct(event)">
+            <div class="form-group">
+              <label>Product Name</label>
+              <input type="text" id="productName" required>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="productCategory" required>
+                <option value="tshirt">T-Shirt</option>
+                <option value="jeans">Jeans</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Price (INR)</label>
+              <input type="number" id="productPrice" required>
+            </div>
+            <div class="form-group">
+              <label>Description</label>
+              <textarea id="productDesc" rows="3"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Add Product</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Customers Section -->
+      <div id="section-customers" class="section">
+        <div class="recent-orders">
+          <h2>Customers</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Orders</th>
+                <th>Total Spent</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rahul Sharma</td>
+                <td>rahul@email.com</td>
+                <td>3</td>
+                <td>₹12,499</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Settings Section -->
+      <div id="section-settings" class="section">
+        <div class="add-product-form">
+          <h2>Admin Settings</h2>
+          <div class="form-group">
+            <label>Admin Email (for orders)</label>
+            <input type="email" value="samarabbas322223@gmail.com" readonly>
+          </div>
+          <div class="form-group">
+            <label>Currency</label>
+            <input type="text" value="INR (₹)" readonly>
+          </div>
+          <button class="submit-btn" onclick="alert('Settings saved (demo)')">Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Login function
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      if(username === 'admin' && password === 'admin123') {
+        document.getElementById('loginPage').classList.add('hidden');
+        document.getElementById('adminDashboard').classList.remove('hidden');
+        loadProducts();
+      } else {
+        alert('Invalid credentials! Try admin/admin123');
+      }
+    }
+
+    function logout() {
+      document.getElementById('loginPage').classList.remove('hidden');
+      document.getElementById('adminDashboard').classList.add('hidden');
+    }
+
+    // Show different sections
+    function showSection(section) {
+      // Hide all sections
+      document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+      document.getElementById(`section-${section}`).classList.add('active');
+      
+      // Update sidebar links
+      document.querySelectorAll('.sidebar nav ul li a').forEach(link => link.classList.remove('active'));
+      document.getElementById(`link-${section}`).classList.add('active');
+    }
+
+    // Product data
+    let products = [];
+
+    // Load products
+    function loadProducts() {
+      // Generate 20 products
+      products = [];
+      for(let i = 1; i <= 20; i++) {
+        const isTshirt = i % 2 !== 0;
+        products.push({
+          id: i,
+          name: isTshirt ? `Premium T-Shirt ${i}` : `Classic Jeans ${i}`,
+          category: isTshirt ? 'tshirt' : 'jeans',
+          price: isTshirt ? 1999 + (i*100) : 2999 + (i*150),
+          desc: 'Premium quality fabric'
+        });
+      }
+      displayProducts('all');
+    }
+
+    // Display products
+    function displayProducts(filter) {
+      const grid = document.getElementById('productGrid');
+      let html = '';
+      
+      products.forEach(p => {
+        if(filter === 'all' || p.category === filter) {
+          html += `
+            <div class="product-card">
+              <i class="fas fa-${p.category === 'tshirt' ? 'tshirt' : 'shopping-bag'}" style="font-size: 3rem; color: #0a2c4e; margin-bottom: 1rem;"></i>
+              <h3>${p.name}</h3>
+              <div class="product-price">₹${p.price.toLocaleString()}</div>
+              <p>${p.desc}</p>
+              <div class="product-actions">
+                <button class="edit-btn" onclick="editProduct(${p.id})"><i class="fas fa-edit"></i> Edit</button>
+                <button class="delete-btn" onclick="deleteProduct(${p.id})"><i class="fas fa-trash"></i> Delete</button>
+              </div>
+            </div>
+          `;
+        }
+      });
+      
+      grid.innerHTML = html;
+    }
+
+    function filterProducts(category) {
+      displayProducts(category);
+      
+      // Update tab active state
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    // Add new product
+    function addProduct(event) {
+      event.preventDefault();
+      
+      const newProduct = {
+        id: products.length + 1,
+        name: document.getElementById('productName').value,
+        category: document.getElementById('productCategory').value,
+        price: parseInt(document.getElementById('productPrice').value),
+        desc: document.getElementById('productDesc').value || 'New product'
+      };
+      
+      products.push(newProduct);
+      displayProducts('all');
+      
+      // Clear form
+      event.target.reset();
+      alert('Product added successfully!');
+      
+      // Switch to products section
+      showSection('products');
+    }
+
+    // Edit product
+    function editProduct(id) {
+      const product = products.find(p => p.id === id);
+      if(product) {
+        document.getElementById('productName').value = product.name;
+        document.getElementById('productCategory').value = product.category;
+        document.getElementById('productPrice').value = product.price;
+        document.getElementById('productDesc').value = product.desc;
+        
+        showSection('addProduct');
+        
+        // Remove old product
+        products = products.filter(p => p.id !== id);
+      }
+    }
+
+    // Delete product
+    function deleteProduct(id) {
+      if(confirm('Are you sure?')) {
+        products = products.filter(p => p.id !== id);
+        displayProducts('all');
+      }
+    }
+
+    // Update stats (demo)
+    setInterval(() => {
+      document.getElementById('totalOrders').innerText = Math.floor(Math.random() * 50 + 20);
+    }, 5000);
+  </script>
+</body>
+</html>
