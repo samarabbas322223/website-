@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>LUXE THREADS · white & blue collection</title>
+  <!-- Font Awesome 5 (free) for icons & product imagery -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: #f8faff;
+      color: #0a1e3c;
+      line-height: 1.5;
+    }
+
+    .website-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 40, 100, 0.08);
+    }
+
+    /* ===== HEADER white/blue ===== */
+    .top-bar {
+      background: #0a2c4e;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .top-bar i {
+      margin-right: 6px;
+      color: #b8d1ff;
+    }
+    .top-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.8rem;
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      transition: 0.2s;
+    }
+    .top-links a:hover {
+      color: #ffecaa;
+    }
+    .top-links i {
+      margin-right: 5px;
+    }
+
+    .main-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: white;
+      border-bottom: 2px solid #e3ecfe;
+    }
+    .logo h1 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: #0a2c4e;
+      font-family: 'Times New Roman', serif;
+      text-transform: uppercase;
+    }
+    .logo span {
+      font-weight: 300;
+      font-size: 0.9rem;
+      display: block;
+      color: #3a6d9c;
+      letter-spacing: 2px;
+    }
+    .nav-icons a {
+      color: #0a2c4e;
+      font-size: 1.6rem;
+      margin-left: 1.2rem;
+      transition: 0.2s;
+      position: relative;
+    }
+    .nav-icons a:hover {
+      color: #2b6eb0;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: #0a2c4e;
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+    }
+
+    .navbar {
+      background: #1e3e6e;
+      padding: 0.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+      font-size: 1.1rem;
+    }
+    .navbar a:hover, .navbar a.active {
+      border-bottom-color: #ffd966;
+      color: #ffecb3;
+    }
+    .navbar a i {
+      margin-right: 6px;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #eef5ff 0%, #ffffff 80%);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-text {
+      flex: 1 1 300px;
+    }
+    .hero-text h2 {
+      font-size: 2.5rem;
+      font-weight: 350;
+      color: #0a2c4e;
+      line-height: 1.2;
+      font-family: 'Georgia', serif;
+    }
+    .hero-text p {
+      margin: 1.2rem 0;
+      font-size: 1.2rem;
+      color: #2f4858;
+    }
+    .btn {
+      display: inline-block;
+      background: #0a2c4e;
+      color: white;
+      padding: 0.8rem 2.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border: 1px solid #0a2c4e;
+      transition: 0.3s;
+    }
+    .btn-outline {
+      background: white;
+      color: #0a2c4e;
+      margin-left: 0.8rem;
+    }
+    .btn:hover {
+      background: #285b8f;
+      border-color: #285b8f;
+      color: white;
+    }
+    .hero-image {
+      flex: 0 0 200px;
+      text-align: center;
+      font-size: 8rem;
+      color: #1e4d7c;
+    }
+
+    /* ===== PRODUCT GRID (20 items) ===== */
+    .section-title {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      font-size: 2rem;
+      font-weight: 300;
+      color: #10355e;
+      letter-spacing: 1px;
+      position: relative;
+    }
+    .section-title:after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: #0a2c4e;
+      display: block;
+      margin: 0.8rem auto 0;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 1.5rem 2rem 3rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.2rem 1rem 1.8rem;
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(0, 30, 70, 0.05);
+      border: 1px solid #dde9ff;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 30px rgba(20, 60, 140, 0.1);
+    }
+
+    /* product image container (using font icons as product images) */
+    .product-image {
+      background: #f0f6ff;
+      border-radius: 20px;
+      padding: 1.5rem 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 5rem;
+      color: #1e4d7c;
+      border: 1px solid #c5d9f0;
+    }
+    .tshirt-img {
+      background: linear-gradient(145deg, #ffffff, #e4edff);
+    }
+    .jeans-img {
+      background: linear-gradient(145deg, #f4f9ff, #d6e5ff);
+    }
+
+    .product-card h3 {
+      font-size: 1.4rem;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+      color: #09213c;
+    }
+    .product-card .price {
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: #0a2c4e;
+      margin: 0.4rem 0;
+    }
+    .price small {
+      font-size: 0.8rem;
+      font-weight: 300;
+      color: #3a6291;
+    }
+    .product-card p {
+      color: #3b4f6b;
+      margin: 0.3rem 0 1rem;
+      font-size: 0.9rem;
+    }
+    .add-to-cart {
+      background: transparent;
+      border: 1.5px solid #0a2c4e;
+      color: #0a2c4e;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: auto;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .add-to-cart i {
+      font-size: 1rem;
+    }
+    .add-to-cart:hover {
+      background: #0a2c4e;
+      color: white;
+    }
+
+    /* checkout area */
+    .cart-panel {
+      background: #eaf1fd;
+      margin: 1rem 2rem 2rem;
+      padding: 1.2rem 2rem;
+      border-radius: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #b7d0ed;
+    }
+    .cart-info {
+      font-size: 1.2rem;
+      color: #0a2c4e;
+    }
+    .cart-info i {
+      margin-right: 10px;
+      color: #10355e;
+    }
+    .place-order-btn {
+      background: #0a2c4e;
+      border: none;
+      color: white;
+      padding: 0.9rem 2.8rem;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,40,80,0.2);
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .place-order-btn:disabled {
+      background: #9bb2d1;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+
+    /* order message / receipt simulation */
+    .order-message {
+      margin: 0 2rem 2rem;
+      padding: 1.2rem 2rem;
+      background: #e0f0ff;
+      border-radius: 50px;
+      color: #004080;
+      font-weight: 500;
+      border-left: 6px solid #0a2c4e;
+      display: none;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .whatsapp-btn {
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-left: auto;
+      transition: 0.2s;
+    }
+    .whatsapp-btn i {
+      margin-right: 6px;
+    }
+    .whatsapp-btn:hover {
+      background: #128C7E;
+    }
+
+    footer {
+      background: #0a1e32;
+      color: #cddff7;
+      padding: 2rem;
+      text-align: center;
+      border-top: 4px solid #376596;
+    }
+    footer .fab, footer .fas {
+      color: white;
+      margin: 0 0.5rem;
+      font-size: 1.3rem;
+    }
+
+    @media (max-width: 650px) {
+      .main-header { flex-direction: column; text-align: center; gap: 0.5rem; }
+      .navbar { justify-content: center; gap: 1.2rem; }
+      .hero { flex-direction: column; text-align: center; }
+      .btn-outline { margin-left: 0; margin-top: 0.7rem; }
+      .cart-panel { flex-direction: column; gap: 1rem; border-radius: 30px; text-align: center; }
+      .top-bar { flex-direction: column; gap: 0.5rem; }
+      .top-links a { margin: 0 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="website-wrapper">
+  <!-- top bar with gmail info -->
+  <div class="top-bar">
+    <div><i class="fas fa-envelope"></i> samarabbas322223@gmail.com (orders)</div>
+    <div class="top-links">
+      <a href="#"><i class="fas fa-truck"></i> shipping</a>
+      <a href="#"><i class="fas fa-rupee-sign"></i> INR</a>
+      <a href="#"><i class="fas fa-undo-alt"></i> returns</a>
+    </div>
+  </div>
+
+  <!-- header with logo + cart icon -->
+  <div class="main-header">
+    <div class="logo">
+      <h1>LUXE&nbsp;THREADS</h1>
+      <span>white & blue • luxury pret</span>
+    </div>
+    <div class="nav-icons">
+      <a href="#"><i class="fas fa-user"></i></a>
+      <a href="#" id="cartIcon">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-badge" id="cartCount">0</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- navigation -->
+  <div class="navbar">
+    <a href="#" class="active"><i class="fas fa-home"></i> home</a>
+    <a href="#products"><i class="fas fa-tshirt"></i> t-shirts & jeans</a>
+    <a href="#"><i class="fas fa-star"></i> new</a>
+    <a href="#"><i class="fas fa-phone-alt"></i> help</a>
+  </div>
+
+  <!-- hero section (luxury paragraph) -->
+  <div class="hero">
+    <div class="hero-text">
+      <h2>Luxury streetwear,<br>effortlessly blue & white</h2>
+      <p>Discover twenty fresh styles — premium t-shirts and jeans. Luxury you can feel, pricing in INR. Each piece designed to elevate your everyday.</p>
+      <div>
+        <a href="#products" class="btn"><i class="fas fa-eye"></i> shop now</a>
+        <a href="#" class="btn btn-outline"><i class="fas fa-rupee-sign"></i> pay in INR</a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <i class="fas fa-tshirt"></i>
+      <i class="fas fa-shopping-bag"></i>
+    </div>
+  </div>
+
+  <!-- PRODUCT SECTION: 20 t-shirts & jeans with images (icons as product images) -->
+  <h2 class="section-title" id="products">20 t-shirts & jeans collection</h2>
+  <div class="product-grid" id="productGridContainer">
+    <!-- JavaScript will generate 20 products dynamically to keep code clean -->
+  </div>
+
+  <!-- CART + CHECKOUT PANEL -->
+  <div class="cart-panel" id="cartPanel">
+    <span class="cart-info"><i class="fas fa-shopping-cart"></i> <span id="cartItemsList">cart is empty</span></span>
+    <button class="place-order-btn" id="placeOrderBtn" disabled><i class="fas fa-envelope"></i> checkout & email</button>
+  </div>
+
+  <!-- ORDER MESSAGE + WHATSAPP FALLBACK (ensures order goes through) -->
+  <div class="order-message" id="orderMessage">
+    <i class="fas fa-check-circle" style="font-size:2rem; color:#0a2c4e;"></i>
+    <span id="orderMessageText">Your order summary will appear here.</span>
+    <button class="whatsapp-btn" id="whatsappOrderBtn"><i class="fab fa-whatsapp"></i> send via WhatsApp</button>
+  </div>
+
+  <!-- footer -->
+  <footer>
+    <p><i class="fas fa-copyright"></i> LuxeThreads — pure white & blue, all prices in INR.</p>
+    <p style="margin-top: 0.8rem;">
+      <i class="fab fa-instagram"></i> <i class="fab fa-facebook"></i> <i class="fab fa-pinterest"></i>
+    </p>
+    <p style="font-size:0.9rem">📬 orders to samarabbas322223@gmail.com • luxury pret wear</p>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    // ---------- GENERATE 20 PRODUCTS (mix of tshirt & jeans) ----------
+    const productGrid = document.getElementById('productGridContainer');
+    const products = [];
+    // create 20 items: even index = t-shirt, odd index = jeans
+    for (let i = 1; i <= 20; i++) {
+      const isTshirt = i % 2 !== 0; // 1,3,5,... tshirt; 2,4,6,... jeans
+      let name, price, iconClass, imgClass, desc;
+      if (isTshirt) {
+        const ts = ['Pure White Linen', 'Blue Striped Crew', 'Oxford Blue', 'Cloud White Tee', 'Navy Pocket', 'White Slub', 'Indigo Washed', 'Supima White', 'Blue Melange', 'White Henley'];
+        name = ts[Math.floor(Math.random() * ts.length)] + ' T-Shirt';
+        price = 1799 + (i * 137); // vary price
+        iconClass = 'fas fa-tshirt';
+        imgClass = 'tshirt-img';
+        desc = 'Premium cotton, luxury finish.';
+      } else {
+        const jn = ['Slim Blue Jeans', 'White Denim', 'Light Blue Straight', 'Ripped White', 'Dark Indigo', 'White Cargo', 'Blue Bootcut', 'Off-White Skinny', 'Classic Blue', 'White Tapered'];
+        name = jn[Math.floor(Math.random() * jn.length)] + ' Jeans';
+        price = 3499 + (i * 142);
+        iconClass = 'fas fa-tshirt';  // using tshirt for jeans? no, we use 'fas fa-jeans' but fontawesome 5 may not have jeans, use 'fa-shopping-bag' as alternative
+        // better: use fa-shopping-bag or fa-user-tie, but we'll use fa-vest for jeans variation
+        iconClass = (i % 4 === 1) ? 'fas fa-vest' : 'fas fa-shopping-bag';  // variety
+        imgClass = 'jeans-img';
+        desc = 'Pure denim, blue or white wash.';
+      }
+      // round price and ensure uniqueness
+      price = Math.round(price / 100) * 100; // tidy
+      products.push({
+        id: i,
+        name: name,
+        price: price,
+        icon: iconClass,
+        imgClass: imgClass,
+        desc: desc
+      });
+    }
+
+    // render products
+    function renderProducts() {
+      let htmlStr = '';
+      products.forEach(p => {
+        htmlStr += `
+          <div class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">
+            <div class="product-image ${p.imgClass}">
+              <i class="${p.icon}"></i>
+            </div>
+            <h3>${p.name}</h3>
+            <div class="price">₹${p.price.toLocaleString('en-IN')} <small>inclusive</small></div>
+            <p>${p.desc}</p>
+            <button class="add-to-cart"><i class="fas fa-cart-plus"></i> add</button>
+          </div>
+        `;
+      });
+      productGrid.innerHTML = htmlStr;
+    }
+    renderProducts();
+
+    // ---------- CART FUNCTIONALITY ----------
+    let cart = [];
+
+    const cartCountSpan = document.getElementById('cartCount');
+    const cartItemsListSpan = document.getElementById('cartItemsList');
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+    const orderMessageDiv = document.getElementById('orderMessage');
+    const orderMessageText = document.getElementById('orderMessageText');
+    const whatsappBtn = document.getElementById('whatsappOrderBtn');
+
+    // format INR
+    const formatINR = (price) => '₹' + price.toLocaleString('en-IN');
+
+    function updateCartUI() {
+      const totalQty = cart.reduce((acc, i) => acc + i.quantity, 0);
+      cartCountSpan.innerText = totalQty;
+
+      if (cart.length === 0) {
+        cartItemsListSpan.innerText = 'cart is empty';
+        placeOrderBtn.disabled = true;
+        orderMessageDiv.style.display = 'none';
+      } else {
+        const items = cart.map(i => `${i.quantity}× ${i.name}`).join(', ');
+        cartItemsListSpan.innerText = items;
+        placeOrderBtn.disabled = false;
+      }
+    }
+
+    // add to cart
+    function addToCart(id, name, price) {
+      const existing = cart.find(item => item.id == id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ id, name, price, quantity: 1 });
+      }
+      updateCartUI();
+      orderMessageDiv.style.display = 'none'; // hide old message
+    }
+
+    // attach add-to-cart after render
+    function attachAddEvents() {
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const card = this.closest('.product-card');
+          const id = card.getAttribute('data-id');
+          const name = card.getAttribute('data-name');
+          const price = parseInt(card.getAttribute('data-price'));
+          addToCart(id, name, price);
+        });
+      });
+    }
+    attachAddEvents();
+
+    // ----- CHECKOUT (email + whatsapp fallback) -----
+    function buildOrderSummary() {
+      if (cart.length === 0) return '';
+      let lines = '🧾 *LuxeThreads Order* 🧾\n\n';
+      let total = 0;
+      cart.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+        lines += `• ${item.name} x ${item.quantity} = ${formatINR(subtotal)}\n`;
+      });
+      lines += `\n*TOTAL: ${formatINR(total)}* (INR)\n\nThank you for shopping!`;
+      return { text: lines, total };
+    }
+
+    // checkout via email (mailto)
+    function checkoutViaEmail() {
+      if (cart.length === 0) {
+        alert('Cart empty');
+        return;
+      }
+      const summary = buildOrderSummary();
+      const subject = encodeURIComponent('New order from LuxeThreads website');
+      const body = encodeURIComponent(summary.text.replace(/\*/g, '') + '\n\nSent via website order.');
+      window.location.href = `mailto:samarabbas322223@gmail.com?subject=${subject}&body=${body}`;
+
+      // show message with WhatsApp alternative
+      orderMessageText.innerText = `📨 Email client opened. If it fails, use WhatsApp button. Total: ${formatINR(summary.total)}`;
+      orderMessageDiv.style.display = 'flex';
+    }
+
+    // WhatsApp share
+    function checkoutViaWhatsApp() {
+      if (cart.length === 0) return;
+      const summary = buildOrderSummary();
+      // whatsapp API
+      const phone = '918888888888'; // dummy (replace with your number? but we send to gmail mainly) 
+      // We'll use a text only, but better to send to our own number? we use as fallback to send to yourself.
+      // actually user can send to any number, but we instruct to forward to gmail.
+      const waText = encodeURIComponent(summary.text + ' Please forward this order to samarabbas322223@gmail.com');
+      window.open(`https://wa.me/?text=${waText}`, '_blank');
+    }
+
+    placeOrderBtn.addEventListener('click', checkoutViaEmail);
+    whatsappBtn.addEventListener('click', checkoutViaWhatsApp);
+
+    // ensure cart is updated and working
+    window.addEventListener('load', function() {
+      updateCartUI();
+    });
+
+    // optional: refresh product attach (in case dynamic render needs reattach)
+    // observer if any new products? not needed now.
+  })();
+</script>
+</body>
+</html>
