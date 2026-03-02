@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXE THREADS · User + Admin</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    /* ========== USER WEBSITE STYLES ========== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background-color: #f8faff;
+      color: #0a1e3c;
+      line-height: 1.5;
+    }
+
+    .website-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 40, 100, 0.08);
+    }
+
+    /* Header */
+    .top-bar {
+      background: #0a2c4e;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .top-bar i {
+      margin-right: 6px;
+      color: #b8d1ff;
+    }
+    .top-links a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.8rem;
+      font-weight: 400;
+      transition: 0.2s;
+    }
+    .top-links a:hover {
+      color: #ffecaa;
+    }
+    .top-links i {
+      margin-right: 5px;
+    }
+
+    .main-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: white;
+      border-bottom: 2px solid #e3ecfe;
+    }
+    .logo h1 {
+      font-size: 2.2rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: #0a2c4e;
+      font-family: 'Times New Roman', serif;
+      text-transform: uppercase;
+    }
+    .logo span {
+      font-weight: 300;
+      font-size: 0.9rem;
+      display: block;
+      color: #3a6d9c;
+      letter-spacing: 2px;
+    }
+    .nav-icons a {
+      color: #0a2c4e;
+      font-size: 1.6rem;
+      margin-left: 1.2rem;
+      transition: 0.2s;
+      position: relative;
+    }
+    .nav-icons a:hover {
+      color: #2b6eb0;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -12px;
+      background: #0a2c4e;
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 30px;
+      font-weight: bold;
+    }
+
+    .navbar {
+      background: #1e3e6e;
+      padding: 0.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 0.5rem 0;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+      font-size: 1.1rem;
+    }
+    .navbar a:hover, .navbar a.active {
+      border-bottom-color: #ffd966;
+      color: #ffecb3;
+    }
+    .navbar a i {
+      margin-right: 6px;
+    }
+
+    .admin-link {
+      background: #ffd966;
+      color: #0a2c4e !important;
+      padding: 0.5rem 1.2rem !important;
+      border-radius: 30px;
+      margin-left: auto;
+    }
+    .admin-link:hover {
+      background: #ffecaa !important;
+      border-bottom: none !important;
+    }
+
+    .hero {
+      background: linear-gradient(145deg, #eef5ff 0%, #ffffff 80%);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hero-text {
+      flex: 1 1 300px;
+    }
+    .hero-text h2 {
+      font-size: 2.5rem;
+      font-weight: 350;
+      color: #0a2c4e;
+      line-height: 1.2;
+      font-family: 'Georgia', serif;
+    }
+    .hero-text p {
+      margin: 1.2rem 0;
+      font-size: 1.2rem;
+      color: #2f4858;
+    }
+    .btn {
+      display: inline-block;
+      background: #0a2c4e;
+      color: white;
+      padding: 0.8rem 2.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border: 1px solid #0a2c4e;
+      transition: 0.3s;
+    }
+    .btn-outline {
+      background: white;
+      color: #0a2c4e;
+      margin-left: 0.8rem;
+    }
+    .btn:hover {
+      background: #285b8f;
+      border-color: #285b8f;
+      color: white;
+    }
+
+    /* Products Grid */
+    .section-title {
+      text-align: center;
+      margin: 2rem 0 1rem;
+      font-size: 2rem;
+      font-weight: 300;
+      color: #10355e;
+      position: relative;
+    }
+    .section-title:after {
+      content: "";
+      width: 80px;
+      height: 3px;
+      background: #0a2c4e;
+      display: block;
+      margin: 0.8rem auto 0;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      padding: 1.5rem 2rem 3rem;
+    }
+
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.2rem 1rem 1.8rem;
+      text-align: center;
+      box-shadow: 0 8px 22px rgba(0, 30, 70, 0.05);
+      border: 1px solid #dde9ff;
+      transition: 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 30px rgba(20, 60, 140, 0.1);
+    }
+
+    .product-image {
+      background: #f0f6ff;
+      border-radius: 20px;
+      padding: 1.5rem 0.5rem;
+      margin-bottom: 1rem;
+      font-size: 5rem;
+      color: #1e4d7c;
+      border: 1px solid #c5d9f0;
+    }
+    .tshirt-img {
+      background: linear-gradient(145deg, #ffffff, #e4edff);
+    }
+    .jeans-img {
+      background: linear-gradient(145deg, #f4f9ff, #d6e5ff);
+    }
+
+    .add-to-cart {
+      background: transparent;
+      border: 1.5px solid #0a2c4e;
+      color: #0a2c4e;
+      padding: 0.6rem 1.2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 1rem auto 0;
+    }
+    .add-to-cart:hover {
+      background: #0a2c4e;
+      color: white;
+    }
+
+    /* Cart Panel */
+    .cart-panel {
+      background: #eaf1fd;
+      margin: 1rem 2rem 2rem;
+      padding: 1.2rem 2rem;
+      border-radius: 60px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #b7d0ed;
+    }
+    .place-order-btn {
+      background: #0a2c4e;
+      border: none;
+      color: white;
+      padding: 0.9rem 2.8rem;
+      border-radius: 40px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .place-order-btn:disabled {
+      background: #9bb2d1;
+      cursor: not-allowed;
+    }
+
+    .order-message {
+      margin: 0 2rem 2rem;
+      padding: 1.2rem 2rem;
+      background: #e0f0ff;
+      border-radius: 50px;
+      color: #004080;
+      border-left: 6px solid #0a2c4e;
+      display: none;
+    }
+
+    /* ========== ADMIN PANEL STYLES ========== */
+    .admin-container {
+      display: flex;
+      min-height: 100vh;
+      background: #f0f4fa;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: #0a2c4e;
+      color: white;
+      padding: 2rem 1.5rem;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      font-weight: 300;
+    }
+
+    .sidebar h2 span {
+      color: #7aa9e0;
+      font-weight: 600;
+    }
+
+    .sidebar .admin-badge {
+      background: #1e4b77;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      margin: 1rem 0 2rem;
+      display: inline-block;
+    }
+
+    .sidebar nav ul {
+      list-style: none;
+    }
+
+    .sidebar nav ul li {
+      margin-bottom: 0.8rem;
+    }
+
+    .sidebar nav ul li a {
+      color: #cbd5e0;
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      display: block;
+      border-radius: 10px;
+      transition: 0.3s;
+    }
+
+    .sidebar nav ul li a i {
+      margin-right: 12px;
+      width: 24px;
+    }
+
+    .sidebar nav ul li a:hover,
+    .sidebar nav ul li a.active {
+      background: #1e4b77;
+      color: white;
+    }
+
+    .main-content {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem;
+    }
+
+    .top-header {
+      background: white;
+      padding: 1.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: white;
+      padding: 1.8rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .recent-orders {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      margin-bottom: 2rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .status-badge {
+      padding: 0.3rem 1rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+    }
+    .status-badge.pending {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+    .status-badge.completed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a2c4e 0%, #1e4b77 100%);
+    }
+
+    .login-box {
+      background: white;
+      padding: 3rem;
+      border-radius: 20px;
+      width: 400px;
+      max-width: 90%;
+    }
+
+    .login-input {
+      width: 100%;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 1rem;
+      background: #0a2c4e;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .user-back-btn {
+      background: #0a2c4e;
+      color: white;
+      padding: 0.5rem 1.5rem;
+      border-radius: 30px;
+      text-decoration: none;
+      margin-right: 1rem;
+    }
+
+    footer {
+      background: #0a1e32;
+      color: #cddff7;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    @media (max-width: 650px) {
+      .main-header, .navbar, .hero { flex-direction: column; text-align: center; }
+      .cart-panel { flex-direction: column; }
+      .sidebar { display: none; }
+      .main-content { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== USER WEBSITE ===== -->
+  <div id="userWebsite">
+    <div class="website-wrapper">
+      <div class="top-bar">
+        <div><i class="fas fa-envelope"></i> samarabbas322223@gmail.com (orders)</div>
+        <div class="top-links">
+          <a href="#"><i class="fas fa-truck"></i> shipping</a>
+          <a href="#"><i class="fas fa-rupee-sign"></i> INR</a>
+          <a href="#"><i class="fas fa-undo-alt"></i> returns</a>
+        </div>
+      </div>
+
+      <div class="main-header">
+        <div class="logo">
+          <h1>LUXE&nbsp;THREADS</h1>
+          <span>white & blue • luxury pret</span>
+        </div>
+        <div class="nav-icons">
+          <a href="#"><i class="fas fa-user"></i></a>
+          <a href="#" id="cartIcon">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="cart-badge" id="cartCount">0</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="navbar">
+        <a href="#" class="active"><i class="fas fa-home"></i> home</a>
+        <a href="#products"><i class="fas fa-tshirt"></i> t-shirts & jeans</a>
+        <a href="#"><i class="fas fa-star"></i> new</a>
+        <a href="#" onclick="showAdminLogin()" class="admin-link"><i class="fas fa-lock"></i> Admin</a>
+      </div>
+
+      <div class="hero">
+        <div class="hero-text">
+          <h2>Luxury streetwear,<br>effortlessly blue & white</h2>
+          <p>Discover twenty fresh styles — premium t-shirts and jeans. Luxury you can feel, pricing in INR.</p>
+          <div>
+            <a href="#products" class="btn"><i class="fas fa-eye"></i> shop now</a>
+            <a href="#" class="btn btn-outline"><i class="fas fa-rupee-sign"></i> pay in INR</a>
+          </div>
+        </div>
+        <div class="hero-image">
+          <i class="fas fa-tshirt"></i>
+          <i class="fas fa-shopping-bag"></i>
+        </div>
+      </div>
+
+      <h2 class="section-title" id="products">20 t-shirts & jeans collection</h2>
+      <div class="product-grid" id="productGridContainer"></div>
+
+      <div class="cart-panel">
+        <span class="cart-info"><i class="fas fa-shopping-cart"></i> <span id="cartItemsList">cart is empty</span></span>
+        <button class="place-order-btn" id="placeOrderBtn" disabled><i class="fas fa-envelope"></i> checkout & email</button>
+      </div>
+
+      <div class="order-message" id="orderMessage">
+        <i class="fas fa-check-circle" style="font-size:2rem; color:#0a2c4e;"></i>
+        <span id="orderMessageText"></span>
+      </div>
+
+      <footer>
+        <p><i class="fas fa-copyright"></i> LuxeThreads — pure white & blue, all prices in INR.</p>
+        <p style="font-size:0.9rem">📬 orders to samarabbas322223@gmail.com</p>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN LOGIN PAGE ===== -->
+  <div id="adminLogin" class="login-container hidden">
+    <div class="login-box">
+      <h2><i class="fas fa-crown"></i> Admin Login</h2>
+      <input type="text" id="username" class="login-input" placeholder="Username" value="admin">
+      <input type="password" id="password" class="login-input" placeholder="Password" value="admin123">
+      <button onclick="adminLogin()" class="login-btn">Login to Dashboard</button>
+      <button onclick="hideAdminLogin()" class="login-btn" style="background: #64748b; margin-top: 1rem;">Back to Store</button>
+    </div>
+  </div>
+
+  <!-- ===== ADMIN DASHBOARD ===== -->
+  <div id="adminDashboard" class="admin-container hidden">
+    <div class="sidebar">
+      <h2>LUXE<span>THREADS</span></h2>
+      <div class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Panel</div>
+      <nav>
+        <ul>
+          <li><a href="#" onclick="showAdminSection('dashboard')" class="active" id="admin-link-dashboard"><i class="fas fa-home"></i> Dashboard</a></li>
+          <li><a href="#" onclick="showAdminSection('orders')" id="admin-link-orders"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+          <li><a href="#" onclick="showAdminSection('products')" id="admin-link-products"><i class="fas fa-tshirt"></i> Products</a></li>
+          <li><a href="#" onclick="showAdminSection('addProduct')" id="admin-link-addproduct"><i class="fas fa-plus-circle"></i> Add Product</a></li>
+          <li><a href="#" onclick="showAdminSection('customers')" id="admin-link-customers"><i class="fas fa-users"></i> Customers</a></li>
+          <li><a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="main-content">
+      <div class="top-header">
+        <div>
+          <a href="#" onclick="backToUserSite()" class="user-back-btn"><i class="fas fa-arrow-left"></i> Back to Store</a>
+        </div>
+        <div class="admin-profile">
+          <i class="fas fa-bell" style="font-size: 1.5rem; color: #0a2c4e;"></i>
+          <span>Admin</span>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard Sections -->
+      <div id="admin-section-dashboard" class="section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-shopping-bag"></i></div>
+            <div class="stat-number" id="adminTotalOrders">24</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-rupee-sign"></i></div>
+            <div class="stat-number">₹45,899</div>
+            <div class="stat-label">Revenue</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon"><i class="fas fa-tshirt"></i></div>
+            <div class="stat-number" id="adminTotalProducts">20</div>
+            <div class="stat-label">Products</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="admin-section-orders" class="section">
+        <div class="recent-orders">
+          <h2>All Orders</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Total</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersTable"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div id="admin-section-products" class="section">
+        <div class="recent-orders">
+          <h2>Manage Products</h2>
+          <div class="product-grid" id="adminProductGrid"></div>
+        </div>
+      </div>
+
+      <div id="admin-section-addProduct" class="section">
+        <div class="recent-orders">
+          <h2>Add New Product</h2>
+          <form onsubmit="adminAddProduct(event)">
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label>Product Name</label>
+              <input type="text" id="adminProductName" style="width:100%; padding:0.8rem;" required>
+            </div>
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label>Category</label>
+              <select id="adminProductCategory" style="width:100%; padding:0.8rem;">
+                <option value="tshirt">T-Shirt</option>
+                <option value="jeans">Jeans</option>
+              </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label>Price (INR)</label>
+              <input type="number" id="adminProductPrice" style="width:100%; padding:0.8rem;" required>
+            </div>
+            <button type="submit" class="login-btn">Add Product</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ===== SHARED DATA =====
+    let cart = [];
+    let products = [];
+    let orders = [
+      { id: '#ORD001', customer: 'Rahul Sharma', total: 5299, status: 'pending' },
+      { id: '#ORD002', customer: 'Priya Patel', total: 7899, status: 'completed' }
+    ];
+
+    // ===== USER WEBSITE FUNCTIONS =====
+    function generateProducts() {
+      products = [];
+      for (let i = 1; i <= 20; i++) {
+        const isTshirt = i % 2 !== 0;
+        products.push({
+          id: i,
+          name: isTshirt ? `Premium T-Shirt ${i}` : `Classic Jeans ${i}`,
+          category: isTshirt ? 'tshirt' : 'jeans',
+          price: isTshirt ? 1999 + (i*100) : 2999 + (i*150),
+          icon: isTshirt ? 'fas fa-tshirt' : 'fas fa-shopping-bag',
+          imgClass: isTshirt ? 'tshirt-img' : 'jeans-img',
+          desc: 'Premium quality fabric'
+        });
+      }
+    }
+    generateProducts();
+
+    function renderUserProducts() {
+      const grid = document.getElementById('productGridContainer');
+      let html = '';
+      products.forEach(p => {
+        html += `
+          <div class="product-card" data-id="${p.id}" data-name="${p.name}" data-price="${p.price}">
+            <div class="product-image ${p.imgClass}"><i class="${p.icon}"></i></div>
+            <h3>${p.name}</h3>
+            <div class="price">₹${p.price.toLocaleString()}</div>
+            <p>${p.desc}</p>
+            <button class="add-to-cart"><i class="fas fa-cart-plus"></i> add</button>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+    }
+    renderUserProducts();
+
+    // Cart Functions
+    function updateCartUI() {
+      const totalQty = cart.reduce((acc, i) => acc + i.quantity, 0);
+      document.getElementById('cartCount').innerText = totalQty;
+      
+      if (cart.length === 0) {
+        document.getElementById('cartItemsList').innerText = 'cart is empty';
+        document.getElementById('placeOrderBtn').disabled = true;
+      } else {
+        const items = cart.map(i => `${i.quantity}× ${i.name}`).join(', ');
+        document.getElementById('cartItemsList').innerText = items;
+        document.getElementById('placeOrderBtn').disabled = false;
+      }
+    }
+
+    function addToCart(id, name, price) {
+      const existing = cart.find(item => item.id == id);
+      if (existing) existing.quantity += 1;
+      else cart.push({ id, name, price, quantity: 1 });
+      updateCartUI();
+    }
+
+    // Attach add to cart events
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('add-to-cart') || e.target.closest('.add-to-cart')) {
+        const btn = e.target.closest('.add-to-cart');
+        const card = btn.closest('.product-card');
+        const id = card.dataset.id;
+        const name = card.dataset.name;
+        const price = parseInt(card.dataset.price);
+        addToCart(id, name, price);
+      }
+    });
+
+    // Checkout
+    document.getElementById('placeOrderBtn').addEventListener('click', function() {
+      if (cart.length === 0) return;
+      
+      let orderText = '🧾 New Order 🧾\n\n';
+      let total = 0;
+      cart.forEach(item => {
+        const subtotal = item.price * item.quantity;
+        total += subtotal;
+        orderText += `${item.name} x${item.quantity} = ₹${subtotal}\n`;
+      });
+      orderText += `\nTOTAL: ₹${total}\n\nThank you!`;
+      
+      // Add to admin orders
+      orders.push({
+        id: '#ORD' + String(orders.length + 1).padStart(3, '0'),
+        customer: 'Website Customer',
+        total: total,
+        status: 'pending'
+      });
+      
+      // Send email
+      window.location.href = `mailto:samarabbas322223@gmail.com?subject=New Order&body=${encodeURIComponent(orderText)}`;
+      
+      document.getElementById('orderMessageText').innerText = `Order placed! Total: ₹${total}`;
+      document.getElementById('orderMessage').style.display = 'flex';
+      
+      // Clear cart
+      cart = [];
+      updateCartUI();
+    });
+
+    // ===== ADMIN FUNCTIONS =====
+    function showAdminLogin() {
+      document.getElementById('userWebsite').classList.add('hidden');
+      document.getElementById('adminLogin').classList.remove('hidden');
+    }
+
+    function hideAdminLogin() {
+      document.getElementById('adminLogin').classList.add('hidden');
+      document.getElementById('userWebsite').classList.remove('hidden');
+    }
+
+    function adminLogin() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      
+      if (username === 'admin' && password === 'admin123') {
+        document.getElementById('adminLogin').classList.add('hidden');
+        document.getElementById('adminDashboard').classList.remove('hidden');
+        loadAdminProducts();
+        loadAdminOrders();
+      } else {
+        alert('Invalid credentials! Use admin/admin123');
+      }
+    }
+
+    function backToUserSite() {
+      document.getElementById('adminDashboard').classList.add('hidden');
+      document.getElementById('userWebsite').classList.remove('hidden');
+    }
+
+    function logout() {
+      document.getElementById('adminDashboard').classList.add('hidden');
+      document.getElementById('userWebsite').classList.remove('hidden');
+    }
+
+    function showAdminSection(section) {
+      document.querySelectorAll('#adminDashboard .section').forEach(s => s.classList.remove('active'));
+      document.getElementById(`admin-section-${section}`).classList.add('active');
+      
+      document.querySelectorAll('#adminDashboard .sidebar nav ul li a').forEach(l => l.classList.remove('active'));
+      document.getElementById(`admin-link-${section}`).classList.add('active');
+    }
+
+    function loadAdminProducts() {
+      const grid = document.getElementById('adminProductGrid');
+      let html = '';
+      products.forEach(p => {
+        html += `
+          <div class="product-card">
+            <i class="${p.icon}" style="font-size: 2rem; color: #0a2c4e;"></i>
+            <h3>${p.name}</h3>
+            <div class="product-price">₹${p.price}</div>
+            <button class="edit-btn" onclick="adminEditProduct(${p.id})">Edit</button>
+            <button class="delete-btn" onclick="adminDeleteProduct(${p.id})">Delete</button>
+          </div>
+        `;
+      });
+      grid.innerHTML = html;
+      document.getElementById('adminTotalProducts').innerText = products.length;
+    }
+
+    function loadAdminOrders() {
+      const tbody = document.getElementById('adminOrdersTable');
+      let html = '';
+      orders.forEach(o => {
+        html += `
+          <tr>
+            <td>${o.id}</td>
+            <td>${o.customer}</td>
+            <td>₹${o.total}</td>
+            <td><span class="status-badge ${o.status}">${o.status}</span></td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+      document.getElementById('adminTotalOrders').innerText = orders.length;
+    }
+
+    function adminAddProduct(event) {
+      event.preventDefault();
+      const newProduct = {
+        id: products.length + 1,
+        name: document.getElementById('adminProductName').value,
+        category: document.getElementById('adminProductCategory').value,
+        price: parseInt(document.getElementById('adminProductPrice').value),
+        icon: document.getElementById('adminProductCategory').value === 'tshirt' ? 'fas fa-tshirt' : 'fas fa-shopping-bag',
+        imgClass: document.getElementById('adminProductCategory').value === 'tshirt' ? 'tshirt-img' : 'jeans-img',
+        desc: 'New product'
+      };
+      products.push(newProduct);
+      renderUserProducts();
+      loadAdminProducts();
+      alert('Product added!');
+      showAdminSection('products');
+    }
+
+    function adminDeleteProduct(id) {
+      if (confirm('Delete this product?')) {
+        products = products.filter(p => p.id !== id);
+        renderUserProducts();
+        loadAdminProducts();
+      }
+    }
+
+    function adminEditProduct(id) {
+      const product = products.find(p => p.id === id);
+      if (product) {
+        document.getElementById('adminProductName').value = product.name;
+        document.getElementById('adminProductCategory').value = product.category;
+        document.getElementById('adminProductPrice').value = product.price;
+        products = products.filter(p => p.id !== id);
+        showAdminSection('addProduct');
+      }
+    }
+
+    // Initialize
+    updateCartUI();
+  </script>
+</body>
+</html>
